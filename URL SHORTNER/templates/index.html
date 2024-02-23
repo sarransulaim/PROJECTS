@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+
+    <!--box icon-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet"  href="/staticfiles/style.css" />
+</head>
+<body>
+
+    <div class="container">
+        <i id="search" class='bx bx-search-alt-2 bx-tada' ></i>
+        <h1>Shorten Your Very Looooong Links :) </h1>
+        <p>shorten your very long links here in just one click </p>
+        <form id="shorten-form" method="post" action="/shorten">
+            <label for="long_url">Enter your URL:</label><br>
+            <input type="text" id="long_url" name="long_url" placeholder="Enter your URL here"><br>
+            <input type="submit" value="Shorten">
+        </form>
+        {% if shortened_url %}
+        <p id="shortened-url">Shortened URL:  <i class='bx bx-link bx-flashing' ></i> <a href="{{ shortened_url }}" target="_blank"> {{ shortened_url }} </a></p>
+        <button id="copy" onclick="copyToClipboard()">Copy</button>
+        {% endif %}
+    </div>
+
+    
+    <script>
+        function copyToClipboard() {
+            var urlInput = document.getElementById("shortened-url").getElementsByTagName("a")[0];
+            var tempInput = document.createElement("input");
+            tempInput.value = urlInput.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            
+        }
+    </script>
+</body>
+</html>
